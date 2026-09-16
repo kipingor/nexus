@@ -2,6 +2,7 @@ import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import { resolve } from 'node:path';
 
 export default defineConfig({
     plugins: [
@@ -12,15 +13,12 @@ export default defineConfig({
         react(),
         tailwindcss(),
     ],
-    server: {
-        host: '0.0.0.0',
-        hmr: {
-            host: process.env.REPLIT_DEV_DOMAIN,
-            protocol: 'wss',
-        },
-        allowedHosts: true,
-        watch: {
-            ignored: ['**/storage/framework/views/**'],
+    esbuild: {
+        jsx: 'automatic',
+    },
+    resolve: {
+        alias: {
+            'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
         },
     },
 });
